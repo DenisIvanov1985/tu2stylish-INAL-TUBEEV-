@@ -1,0 +1,133 @@
+'use client';
+
+import { useState, useRef } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+
+const regions = [
+  {
+    name: 'United States',
+    cities: ['New York', 'Boston', 'Los Angeles', 'Miami'],
+  },
+  {
+    name: 'Europe',
+    cities: ['London', 'Paris', 'Milan', 'Barcelona'],
+  },
+  {
+    name: 'Middle East',
+    cities: ['Dubai', 'Abu Dhabi', 'Riyadh', 'Doha'],
+  },
+  {
+    name: 'Asia',
+    cities: ['Guangzhou', 'Shanghai', 'Tokyo', 'Singapore'],
+  },
+  {
+    name: 'Russia',
+    cities: ['Moscow', 'St. Petersburg', 'Kazan', 'Sochi'],
+  },
+];
+
+export default function Worldwide() {
+  const [activeTab, setActiveTab] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  return (
+    <section ref={ref} className="section-padding bg-[#0E1110] overflow-hidden">
+      <div className="container-custom">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="mb-16"
+        >
+          <p className="text-sm tracking-[0.3em] text-[var(--color-muted)] uppercase mb-4">
+            Worldwide
+          </p>
+          <h2 className="text-4xl md:text-5xl font-light text-white">
+            Global Reach
+          </h2>
+        </motion.div>
+
+        {/* Tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex flex-wrap gap-4 md:gap-8 mb-12"
+        >
+          {regions.map((region, index) => (
+            <button
+              key={region.name}
+              onClick={() => setActiveTab(index)}
+              className={`text-lg md:text-xl font-light tracking-wide transition-all duration-300 pb-2 border-b-2 ${
+                activeTab === index
+                  ? 'text-white border-[var(--color-primary)]'
+                  : 'text-white/40 border-transparent hover:text-white/70'
+              }`}
+            >
+              {region.name}
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Arc Decoration */}
+        <div className="relative mb-12">
+          <svg
+            className="w-full h-24 md:h-32"
+            viewBox="0 0 1000 100"
+            preserveAspectRatio="none"
+          >
+            <motion.path
+              d="M 0 100 Q 500 0 1000 100"
+              fill="none"
+              stroke="var(--color-primary)"
+              strokeWidth="1"
+              initial={{ pathLength: 0 }}
+              animate={isInView ? { pathLength: 1 } : {}}
+              transition={{ duration: 1.5, delay: 0.5 }}
+            />
+          </svg>
+
+          {/* Degree markers */}
+          <div className="absolute top-0 left-0 right-0 flex justify-between px-8 text-xs text-white/30">
+            <span>0°</span>
+            <span>45°</span>
+            <span>90°</span>
+            <span>135°</span>
+            <span>180°</span>
+          </div>
+        </div>
+
+        {/* Cities */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+          >
+            {regions[activeTab].cities.map((city, index) => (
+              <motion.div
+                key={city}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <p className="text-2xl md:text-3xl font-light text-white mb-2">
+                  {city}
+                </p>
+                <p className="text-sm text-white/40 tracking-wider">
+                  {Math.floor(Math.random() * 15) + 1} Projects
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+}
