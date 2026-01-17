@@ -9,7 +9,7 @@ export default function Manifesto() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section ref={ref} className="section-padding bg-[#0E1110]">
+    <section ref={ref} id="about" className="section-padding bg-[#0E1110]">
       <div className="container-custom">
         <div className="max-w-5xl mx-auto text-center">
           <motion.h2
@@ -36,7 +36,7 @@ export default function Manifesto() {
             transition={{ duration: 1, delay: 0.4, ease: [0.6, 0, 0.2, 1] }}
           >
             <Link
-              href="#about"
+              href="#contact"
               className="inline-block px-8 py-4 bg-[var(--color-primary)] text-white text-sm font-medium tracking-wider uppercase hover:bg-[var(--color-primary-light)] transition-colors"
             >
               Discover TU2STYLISH

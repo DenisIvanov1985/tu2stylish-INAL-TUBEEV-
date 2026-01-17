@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -8,7 +7,7 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "TU2STYLISH | Architecture & Interior Design Studio",
   description: "We create iconic architectural and interior spaces that challenge convention and define modern lifestyle. From private residences to large-scale developments.",
   keywords: ["architecture", "interior design", "luxury design", "residential", "commercial", "hospitality"],
@@ -19,11 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} antialiased`}>

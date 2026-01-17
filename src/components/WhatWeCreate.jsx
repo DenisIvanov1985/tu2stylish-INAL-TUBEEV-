@@ -63,7 +63,7 @@ export default function WhatWeCreate() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: index * 0.1 }}
             >
-              <Link href={`/projects?category=${category.name.toLowerCase()}`}>
+              <Link href={`#projects`}>
                 <div className="group relative h-80 overflow-hidden cursor-pointer">
                   {/* Background Image */}
                   <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110">
@@ -117,7 +117,7 @@ export default function WhatWeCreate() {
           className="mt-16 text-center"
         >
           <Link
-            href="/projects"
+            href="#projects"
             className="inline-block px-8 py-4 border border-[var(--color-text-dark)] text-[var(--color-text-dark)] text-sm font-medium tracking-wider uppercase hover:bg-[var(--color-text-dark)] hover:text-white transition-all duration-300"
           >
             View All Projects

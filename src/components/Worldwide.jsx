@@ -7,22 +7,27 @@ const regions = [
   {
     name: 'United States',
     cities: ['New York', 'Boston', 'Los Angeles', 'Miami'],
+    projects: [8, 5, 7, 4],
   },
   {
     name: 'Europe',
     cities: ['London', 'Paris', 'Milan', 'Barcelona'],
+    projects: [6, 4, 9, 3],
   },
   {
     name: 'Middle East',
     cities: ['Dubai', 'Abu Dhabi', 'Riyadh', 'Doha'],
+    projects: [12, 5, 4, 6],
   },
   {
     name: 'Asia',
     cities: ['Guangzhou', 'Shanghai', 'Tokyo', 'Singapore'],
+    projects: [7, 5, 3, 4],
   },
   {
     name: 'Russia',
     cities: ['Moscow', 'St. Petersburg', 'Kazan', 'Sochi'],
+    projects: [9, 6, 2, 3],
   },
 ];
 
@@ -121,7 +126,7 @@ export default function Worldwide() {
                   {city}
                 </p>
                 <p className="text-sm text-white/40 tracking-wider">
-                  {Math.floor(Math.random() * 15) + 1} Projects
+                  {regions[activeTab].projects[index]} Projects
                 </p>
               </motion.div>
             ))}

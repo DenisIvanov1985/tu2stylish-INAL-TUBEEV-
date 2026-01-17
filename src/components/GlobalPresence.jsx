@@ -32,13 +32,13 @@ const offices = [
   },
 ];
 
-function LocalTime({ timezone }: { timezone: string }) {
+function LocalTime({ timezone }) {
   const [time, setTime] = useState('');
 
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
+      const options = {
         hour: '2-digit',
         minute: '2-digit',
         timeZone: timezone,

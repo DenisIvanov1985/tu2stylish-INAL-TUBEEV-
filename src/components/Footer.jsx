@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 
 export default function Footer() {
   return (
@@ -57,7 +56,7 @@ export default function Footer() {
               Navigation
             </h4>
             <nav className="flex flex-col gap-4">
-              <Link href="/projects" className="link-hover text-white/80 hover:text-white transition-colors">
+              <Link href="#projects" className="link-hover text-white/80 hover:text-white transition-colors">
                 Projects
               </Link>
               <Link href="#services" className="link-hover text-white/80 hover:text-white transition-colors">
@@ -66,7 +65,7 @@ export default function Footer() {
               <Link href="#about" className="link-hover text-white/80 hover:text-white transition-colors">
                 About
               </Link>
-              <Link href="/careers" className="link-hover text-white/80 hover:text-white transition-colors">
+              <Link href="#careers" className="link-hover text-white/80 hover:text-white transition-colors">
                 Careers
               </Link>
               <Link href="#contact" className="link-hover text-white/80 hover:text-white transition-colors">
@@ -105,13 +104,13 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} TU2STYLISH. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-white/40">
-            <Link href="/privacy" className="hover:text-white transition-colors">
+            <Link href="#" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
+            <Link href="#" className="hover:text-white transition-colors">
               Terms of Use
             </Link>
-            <Link href="/accessibility" className="hover:text-white transition-colors">
+            <Link href="#" className="hover:text-white transition-colors">
               Accessibility
             </Link>
           </div>

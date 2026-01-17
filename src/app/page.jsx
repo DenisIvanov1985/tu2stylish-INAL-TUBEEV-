@@ -6,18 +6,26 @@ import Worldwide from '@/components/Worldwide';
 import FeaturedProject from '@/components/FeaturedProject';
 import GlobalPresence from '@/components/GlobalPresence';
 import Footer from '@/components/Footer';
+import Preloader from '@/components/Preloader';
+import CustomCursor from '@/components/CustomCursor';
+import ScrollToTop from '@/components/ScrollToTop';
 
 export default function Home() {
   return (
-    <main>
-      <Navigation />
-      <Hero />
-      <Manifesto />
-      <WhatWeCreate />
-      <FeaturedProject />
-      <Worldwide />
-      <GlobalPresence />
-      <Footer />
-    </main>
+    <>
+      <Preloader />
+      <CustomCursor />
+      <ScrollToTop />
+      <main>
+        <Navigation />
+        <Hero />
+        <Manifesto />
+        <WhatWeCreate />
+        <FeaturedProject />
+        <Worldwide />
+        <GlobalPresence />
+        <Footer />
+      </main>
+    </>
   );
 }

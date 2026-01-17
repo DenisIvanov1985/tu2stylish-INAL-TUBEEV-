@@ -24,8 +24,8 @@ const projects = [
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const locationRef = useRef<HTMLParagraphElement>(null);
+  const titleRef = useRef(null);
+  const locationRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {

@@ -65,7 +65,7 @@ export default function FeaturedProject() {
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
                 <Link
-                  href="/projects/skyline-penthouse"
+                  href="#contact"
                   className="inline-flex items-center gap-4 px-8 py-4 bg-[var(--color-primary)] text-white text-sm font-medium tracking-wider uppercase hover:bg-[var(--color-primary-light)] transition-colors"
                 >
                   Explore Project
