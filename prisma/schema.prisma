@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Категории проектов
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  image       String?
+  order       Int       @default(0)
+  projects    Project[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// Проекты
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?
+  location    String?
+  year        Int?
+  area        Int?      // площадь в м2
+  duration    Int?      // длительность в месяцах
+  awards      Int?      // количество наград
+  featured    Boolean  @default(false)
+  published   Boolean  @default(false)
+
+  // Связь с категорией
+  category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+
+  // Изображения
+  coverImage  String?
+  images      ProjectImage[]
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Изображения проектов
+model ProjectImage {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String?
+  order     Int      @default(0)
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+  createdAt DateTime @default(now())
+}
+
+// Заявки с сайта
+model Request {
+  id          String        @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  projectType String?
+  message     String
+  status      RequestStatus @default(NEW)
+  notes       String?       // заметки менеджера
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+enum RequestStatus {
+  NEW
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+// Настройки сайта
+model Settings {
+  id          String  @id @default("main")
+  siteName    String  @default("TU2STYLISH")
+  email       String?
+  phone       String?
+  address     String?
+  instagram   String?
+  linkedin    String?
+  pinterest   String?
+  telegram    String?
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+
+  updatedAt   DateTime @updatedAt
+}

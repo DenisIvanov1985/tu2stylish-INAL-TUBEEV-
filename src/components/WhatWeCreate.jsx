@@ -3,31 +3,38 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
+import ImageSkeleton from './ImageSkeleton';
+import MagneticButton from './MagneticButton';
 
 const categories = [
   {
     name: 'Residential',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+    slug: 'residential',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=70&auto=format',
     count: 45,
   },
   {
-    name: 'Mixed',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
+    name: 'Mixed Use',
+    slug: 'mixed-use',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=70&auto=format',
     count: 23,
   },
   {
     name: 'Hospitality',
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+    slug: 'hospitality',
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=70&auto=format',
     count: 18,
   },
   {
     name: 'Commercial',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
+    slug: 'commercial',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=70&auto=format',
     count: 31,
   },
   {
     name: 'Public & Urban',
-    image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80',
+    slug: 'public-urban',
+    image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=70&auto=format',
     count: 12,
   },
 ];
@@ -63,14 +70,14 @@ export default function WhatWeCreate() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: index * 0.1 }}
             >
-              <Link href={`#projects`}>
+              <Link href={`/projects?category=${category.slug}`}>
                 <div className="group relative h-80 overflow-hidden cursor-pointer">
                   {/* Background Image */}
-                  <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110">
-                    <img
+                  <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
+                    <ImageSkeleton
                       src={category.image}
                       alt={category.name}
-                      className="w-full h-full object-cover loaded"
+                      className="w-full h-full"
                     />
                   </div>
 
@@ -116,12 +123,14 @@ export default function WhatWeCreate() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-16 text-center"
         >
-          <Link
-            href="#projects"
-            className="inline-block px-8 py-4 border border-[var(--color-text-dark)] text-[var(--color-text-dark)] text-sm font-medium tracking-wider uppercase hover:bg-[var(--color-text-dark)] hover:text-white transition-all duration-300"
-          >
-            View All Projects
-          </Link>
+          <MagneticButton>
+            <Link
+              href="/projects"
+              className="inline-block px-8 py-4 border border-[var(--color-text-dark)] text-[var(--color-text-dark)] text-sm font-medium tracking-wider uppercase hover:bg-[var(--color-text-dark)] hover:text-white transition-all duration-300"
+            >
+              View All Projects
+            </Link>
+          </MagneticButton>
         </motion.div>
       </div>
     </section>

@@ -1,0 +1,78 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 30
+      arrivalRate: 5
+      name: "Warm up"
+    - duration: 60
+      arrivalRate: 20
+      name: "Normal load"
+    - duration: 30
+      arrivalRate: 50
+      name: "Peak load"
+  defaults:
+    headers:
+      User-Agent: "Artillery Load Test"
+
+scenarios:
+  - name: "Browse Homepage"
+    weight: 40
+    flow:
+      - get:
+          url: "/"
+      - think: 2
+      - get:
+          url: "/projects"
+      - think: 1
+
+  - name: "View Project Details"
+    weight: 30
+    flow:
+      - get:
+          url: "/projects"
+      - think: 1
+      - get:
+          url: "/projects/mill-basin-marina"
+      - think: 3
+      - get:
+          url: "/projects/bosphorus-residence"
+      - think: 2
+
+  - name: "Submit Contact Form"
+    weight: 15
+    flow:
+      - get:
+          url: "/"
+      - think: 2
+      - post:
+          url: "/api/contact"
+          json:
+            name: "Load Test User"
+            email: "loadtest@example.com"
+            phone: "+1234567890"
+            projectType: "Commercial"
+            message: "This is a load test submission"
+
+  - name: "Browse Legal Pages"
+    weight: 10
+    flow:
+      - get:
+          url: "/privacy"
+      - think: 1
+      - get:
+          url: "/terms"
+      - think: 1
+      - get:
+          url: "/accessibility"
+
+  - name: "Admin Access"
+    weight: 5
+    flow:
+      - get:
+          url: "/admin"
+      - think: 1
+      - get:
+          url: "/admin/projects"
+      - think: 1
+      - get:
+          url: "/admin/requests"

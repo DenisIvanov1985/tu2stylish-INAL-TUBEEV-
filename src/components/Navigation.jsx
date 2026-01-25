@@ -3,18 +3,20 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import ThemeToggle from './ThemeToggle';
+import { useTheme } from '@/context/ThemeContext';
 
 const menuItems = [
   { name: 'Projects', href: '#projects' },
   { name: 'What We Do', href: '#services' },
   { name: 'About TU2STYLISH', href: '#about' },
-  { name: 'Careers', href: '#careers' },
   { name: 'Contact', href: '#contact' },
 ];
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,20 +27,27 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navBg = isScrolled
+    ? theme === 'dark'
+      ? 'bg-[#0E1110]/90 backdrop-blur-md'
+      : 'bg-white/90 backdrop-blur-md shadow-sm'
+    : 'bg-transparent';
+
+  const textColor = theme === 'dark' || !isScrolled ? 'text-white' : 'text-gray-900';
+  const textMuted = theme === 'dark' || !isScrolled ? 'text-white/80' : 'text-gray-600';
+
   return (
     <>
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.6, 0, 0.2, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled ? 'bg-[#0E1110]/90 backdrop-blur-md' : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${navBg}`}
       >
         <div className="container-custom">
           <div className="flex items-center justify-between h-20 md:h-24">
             {/* Logo */}
-            <Link href="/" className="text-xl md:text-2xl font-light tracking-[0.3em] text-white uppercase">
+            <Link href="/" className={`text-xl md:text-2xl font-light tracking-[0.3em] uppercase transition-colors ${textColor}`}>
               TU2STYLISH
             </Link>
 
@@ -48,15 +57,16 @@ export default function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="link-hover text-sm font-light tracking-wider text-white/80 hover:text-white transition-colors"
+                  className={`link-hover text-sm font-light tracking-wider transition-colors hover:opacity-100 ${textMuted}`}
                 >
                   {item.name}
                 </Link>
               ))}
             </div>
 
-            {/* CTA Button */}
-            <div className="hidden lg:block">
+            {/* Right Side */}
+            <div className="hidden lg:flex items-center gap-4">
+              <ThemeToggle />
               <Link
                 href="#contact"
                 className="px-6 py-3 bg-[var(--color-primary)] text-white text-sm font-medium tracking-wider uppercase hover:bg-[var(--color-primary-light)] transition-colors"
@@ -65,24 +75,28 @@ export default function Navigation() {
               </Link>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5"
-            >
-              <motion.span
-                animate={isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                className="w-6 h-[1px] bg-white block"
-              />
-              <motion.span
-                animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                className="w-6 h-[1px] bg-white block"
-              />
-              <motion.span
-                animate={isMobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                className="w-6 h-[1px] bg-white block"
-              />
-            </button>
+            {/* Mobile Controls */}
+            <div className="flex items-center gap-4 lg:hidden">
+              <ThemeToggle />
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              >
+                <motion.span
+                  animate={isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                  className={`w-6 h-[1px] block transition-colors ${textColor === 'text-white' ? 'bg-white' : 'bg-gray-900'}`}
+                />
+                <motion.span
+                  animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                  className={`w-6 h-[1px] block transition-colors ${textColor === 'text-white' ? 'bg-white' : 'bg-gray-900'}`}
+                />
+                <motion.span
+                  animate={isMobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                  className={`w-6 h-[1px] block transition-colors ${textColor === 'text-white' ? 'bg-white' : 'bg-gray-900'}`}
+                />
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -95,7 +109,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[#0E1110] lg:hidden"
+            className={`fixed inset-0 z-40 lg:hidden ${theme === 'dark' ? 'bg-[#0E1110]' : 'bg-white'}`}
           >
             <div className="flex flex-col items-center justify-center h-full">
               <nav className="flex flex-col items-center gap-8">
@@ -110,7 +124,7 @@ export default function Navigation() {
                     <Link
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="text-3xl font-light tracking-wider text-white hover:text-[var(--color-primary)] transition-colors"
+                      className={`text-3xl font-light tracking-wider hover:text-[var(--color-primary)] transition-colors ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
                     >
                       {item.name}
                     </Link>

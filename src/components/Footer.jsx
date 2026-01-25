@@ -21,6 +21,7 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Instagram"
                 className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -31,6 +32,7 @@ export default function Footer() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="LinkedIn"
                 className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -41,6 +43,7 @@ export default function Footer() {
                 href="https://pinterest.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Pinterest"
                 className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -64,9 +67,6 @@ export default function Footer() {
               </Link>
               <Link href="#about" className="link-hover text-white/80 hover:text-white transition-colors">
                 About
-              </Link>
-              <Link href="#careers" className="link-hover text-white/80 hover:text-white transition-colors">
-                Careers
               </Link>
               <Link href="#contact" className="link-hover text-white/80 hover:text-white transition-colors">
                 Contact
@@ -103,16 +103,10 @@ export default function Footer() {
           <p className="text-sm text-white/40">
             &copy; {new Date().getFullYear()} TU2STYLISH. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-white/40">
-            <Link href="#" className="hover:text-white transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="#" className="hover:text-white transition-colors">
-              Terms of Use
-            </Link>
-            <Link href="#" className="hover:text-white transition-colors">
-              Accessibility
-            </Link>
+          <div className="flex gap-6 text-sm text-white/50">
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Use</Link>
+            <Link href="/accessibility" className="hover:text-white transition-colors">Accessibility</Link>
           </div>
         </div>
       </div>

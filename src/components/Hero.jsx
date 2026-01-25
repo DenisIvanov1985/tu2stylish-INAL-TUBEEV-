@@ -3,22 +3,27 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
+import Link from 'next/link';
+import MagneticButton from './MagneticButton';
 
 const projects = [
   {
     title: 'Mill Basin Marina',
     location: 'New York, USA',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80',
+    slug: 'mill-basin-marina',
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=70&auto=format',
   },
   {
     title: 'Bosphorus Residence',
     location: 'Istanbul, Turkey',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80',
+    slug: 'bosphorus-residence',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=70&auto=format',
   },
   {
     title: 'Pearl Tower Penthouse',
     location: 'Dubai, UAE',
-    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1920&q=80',
+    slug: 'pearl-tower-penthouse',
+    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=70&auto=format',
   },
 ];
 
@@ -51,21 +56,25 @@ export default function Hero() {
   }, [currentSlide]);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative h-screen w-full overflow-hidden bg-[#0E1110]">
       {/* Background Images */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ opacity: 0 }}
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          exit={{ scale: 1.05 }}
           transition={{ duration: 1.5, ease: [0.6, 0, 0.2, 1] }}
           className="absolute inset-0"
         >
-          <img
+          <motion.img
             src={projects[currentSlide].image}
             alt={projects[currentSlide].title}
-            className="w-full h-full object-cover loaded"
+            className="w-full h-full object-cover"
+            loading="eager"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
           />
         </motion.div>
       </AnimatePresence>
@@ -89,13 +98,17 @@ export default function Hero() {
             >
               {projects[currentSlide].location}
             </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 border border-white/30 text-white text-sm font-medium tracking-wider uppercase hover:bg-white hover:text-[#0E1110] transition-all duration-300"
-            >
-              Explore Project
-            </motion.button>
+            <MagneticButton>
+              <Link href={`/projects/${projects[currentSlide].slug}`}>
+                <motion.span
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-block px-8 py-4 border border-white/30 text-white text-sm font-medium tracking-wider uppercase hover:bg-white hover:text-[#0E1110] transition-all duration-300"
+                >
+                  Explore Project
+                </motion.span>
+              </Link>
+            </MagneticButton>
           </div>
 
           {/* Slide Indicators */}
@@ -104,8 +117,9 @@ export default function Hero() {
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`w-12 h-[2px] transition-all duration-300 ${
-                  index === currentSlide ? 'bg-white' : 'bg-white/30'
+                aria-label={`Go to slide ${index + 1}`}
+                className={`h-[2px] transition-all duration-500 ${
+                  index === currentSlide ? 'bg-white w-16' : 'bg-white/30 w-8 hover:bg-white/50'
                 }`}
               />
             ))}

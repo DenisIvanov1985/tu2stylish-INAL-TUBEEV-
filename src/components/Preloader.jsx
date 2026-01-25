@@ -8,20 +8,30 @@ export default function Preloader() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Simulate loading progress
+    let currentProgress = 0;
+
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setIsLoading(false), 500);
-          return 100;
-        }
-        return prev + Math.random() * 15;
-      });
+      currentProgress += Math.random() * 15;
+
+      if (currentProgress >= 100) {
+        currentProgress = 100;
+        setProgress(100);
+        clearInterval(interval);
+
+        // Fade out after reaching 100%
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
+      } else {
+        setProgress(currentProgress);
+      }
     }, 100);
 
     return () => clearInterval(interval);
   }, []);
+
+  // Don't render anything if not loading
+  if (!isLoading) return null;
 
   return (
     <AnimatePresence>
