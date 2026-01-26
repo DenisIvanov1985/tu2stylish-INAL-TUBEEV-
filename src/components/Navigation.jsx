@@ -39,7 +39,7 @@ export default function Navigation() {
         <div className="container-custom">
           <div className="flex items-center justify-between h-20 md:h-24">
             {/* Logo */}
-            <Link href="/" className="text-xl md:text-2xl font-light tracking-[0.3em] uppercase transition-colors text-white">
+            <Link href="/" className="logo-text transition-colors text-white">
               TU2STYLISH
             </Link>
 
@@ -49,7 +49,7 @@ export default function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="link-hover text-sm font-light tracking-wider transition-colors hover:opacity-100 text-white/80 hover:text-white"
+                  className="link-hover menu-text transition-colors hover:opacity-100 text-white/80 hover:text-white"
                 >
                   {item.name}
                 </Link>

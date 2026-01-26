@@ -4,7 +4,6 @@ import Manifesto from '@/components/Manifesto';
 import WhatWeCreate from '@/components/WhatWeCreate';
 import Worldwide from '@/components/Worldwide';
 import AboutFounder from '@/components/AboutFounder';
-import Spline3DSection from '@/components/Spline3DSection';
 import GlobalPresence from '@/components/GlobalPresence';
 import Footer from '@/components/Footer';
 import Preloader from '@/components/Preloader';
@@ -23,8 +22,7 @@ export default function Home() {
         <Manifesto />
         <WhatWeCreate />
         <AboutFounder />
-        <Spline3DSection />
-        <Worldwide />
+                <Worldwide />
         <GlobalPresence />
         <Footer />
       </main>

@@ -37,8 +37,20 @@ export default function Worldwide() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section ref={ref} className="section-padding bg-[#0E1110] overflow-hidden">
-      <div className="container-custom">
+    <section ref={ref} className="min-h-screen bg-[#0E1110] overflow-hidden relative flex items-center">
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-40"
+      >
+        <source src="/videos/earth_loop_720p.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-[#0E1110]/60" />
+
+      <div className="w-full px-[80px] md:px-[120px] relative z-10 py-[80px] text-center">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -59,7 +71,7 @@ export default function Worldwide() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-wrap gap-4 md:gap-8 mb-12"
+          className="flex flex-wrap justify-center gap-4 md:gap-8 mb-12"
         >
           {regions.map((region, index) => (
             <button
@@ -77,7 +89,7 @@ export default function Worldwide() {
         </motion.div>
 
         {/* Arc Decoration */}
-        <div className="relative mb-12">
+        <div className="relative mb-12 px-[5%]">
           <svg
             className="w-full h-24 md:h-32"
             viewBox="0 0 1000 100"
@@ -95,7 +107,7 @@ export default function Worldwide() {
           </svg>
 
           {/* Degree markers */}
-          <div className="absolute top-0 left-0 right-0 flex justify-between px-8 text-xs text-white/30">
+          <div className="absolute top-0 left-[2%] right-[2%] flex justify-between px-8 text-xs text-white/30">
             <span>0°</span>
             <span>45°</span>
             <span>90°</span>

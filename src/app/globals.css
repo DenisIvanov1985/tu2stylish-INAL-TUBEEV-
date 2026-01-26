@@ -48,6 +48,34 @@
   --color-accent: #3d7a64;
 }
 
+/* ===== TYPOGRAPHY ===== */
+.menu-text {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 400;
+}
+
+.logo-text {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-weight: 400;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.body-text {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.body-text-large {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
 /* ===== BASE STYLES ===== */
 * {
   margin: 0;
