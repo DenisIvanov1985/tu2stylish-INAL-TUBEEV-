@@ -3,7 +3,7 @@ import Hero from '@/components/Hero';
 import Manifesto from '@/components/Manifesto';
 import WhatWeCreate from '@/components/WhatWeCreate';
 import Worldwide from '@/components/Worldwide';
-import FeaturedProject from '@/components/FeaturedProject';
+import AboutFounder from '@/components/AboutFounder';
 import Spline3DSection from '@/components/Spline3DSection';
 import GlobalPresence from '@/components/GlobalPresence';
 import Footer from '@/components/Footer';
@@ -22,7 +22,7 @@ export default function Home() {
         <Hero />
         <Manifesto />
         <WhatWeCreate />
-        <FeaturedProject />
+        <AboutFounder />
         <Spline3DSection />
         <Worldwide />
         <GlobalPresence />
