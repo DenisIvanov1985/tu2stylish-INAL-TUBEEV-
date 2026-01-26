@@ -37,7 +37,7 @@ export default function Manifesto() {
           >
             <Link
               href="#contact"
-              className="inline-block px-8 py-4 bg-[var(--color-primary)] text-white text-sm font-medium tracking-wider uppercase hover:bg-[var(--color-primary-light)] transition-colors"
+              className="inline-block px-8 py-4 bg-[var(--color-primary)] text-white menu-text hover:bg-[var(--color-primary-light)] transition-colors"
             >
               Discover TU2STYLISH
             </Link>

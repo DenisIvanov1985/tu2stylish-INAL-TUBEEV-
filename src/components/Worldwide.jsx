@@ -46,6 +46,7 @@ export default function Worldwide() {
         playsInline
         className="absolute inset-0 w-full h-full object-cover opacity-40"
       >
+        <source src="/videos/earth_loop_720p.webm" type="video/webm" />
         <source src="/videos/earth_loop_720p.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-[#0E1110]/60" />
@@ -58,7 +59,7 @@ export default function Worldwide() {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <p className="text-sm tracking-[0.3em] text-[var(--color-muted)] uppercase mb-4">
+          <p className="menu-text text-[var(--color-muted)] mb-4">
             Worldwide
           </p>
           <h2 className="text-4xl md:text-5xl font-light text-white">

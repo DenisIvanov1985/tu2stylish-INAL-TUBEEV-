@@ -103,7 +103,7 @@ export default function Hero() {
                 <motion.span
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-block px-8 py-4 border border-white/30 text-white text-sm font-medium tracking-wider uppercase hover:bg-white hover:text-[#0E1110] transition-all duration-300"
+                  className="inline-block px-8 py-4 border border-white/30 text-white menu-text hover:bg-white hover:text-[#0E1110] transition-all duration-300"
                 >
                   Explore Project
                 </motion.span>

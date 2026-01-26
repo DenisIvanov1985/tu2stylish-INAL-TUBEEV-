@@ -53,7 +53,7 @@ export default function WhatWeCreate() {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <p className="text-sm tracking-[0.3em] text-[var(--color-muted)] uppercase mb-4">
+          <p className="menu-text text-[var(--color-muted)] mb-4">
             What We Create
           </p>
           <h2 className="text-4xl md:text-5xl font-light text-[var(--color-text-dark)]">
@@ -126,7 +126,7 @@ export default function WhatWeCreate() {
           <MagneticButton>
             <Link
               href="/projects"
-              className="inline-block px-8 py-4 border border-[var(--color-text-dark)] text-[var(--color-text-dark)] text-sm font-medium tracking-wider uppercase hover:bg-[var(--color-text-dark)] hover:text-white transition-all duration-300"
+              className="inline-block px-8 py-4 border border-[var(--color-text-dark)] text-[var(--color-text-dark)] menu-text hover:bg-[var(--color-text-dark)] hover:text-white transition-all duration-300"
             >
               View All Projects
             </Link>

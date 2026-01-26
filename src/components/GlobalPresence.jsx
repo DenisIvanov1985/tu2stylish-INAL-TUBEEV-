@@ -68,7 +68,7 @@ export default function GlobalPresence() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-sm tracking-[0.3em] text-[var(--color-accent)] uppercase mb-4">
+            <p className="menu-text text-[var(--color-accent)] mb-4">
               Get in Touch
             </p>
             <h2 className="text-4xl md:text-5xl font-light text-white mb-6">
@@ -228,7 +228,7 @@ export default function GlobalPresence() {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full mt-8 py-4 bg-[var(--color-primary)] text-white text-sm font-medium tracking-wider uppercase hover:bg-[var(--color-primary-light)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                  className="w-full mt-8 py-4 bg-[var(--color-primary)] text-white menu-text hover:bg-[var(--color-primary-light)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                 >
                   {isSubmitting ? (
                     <>

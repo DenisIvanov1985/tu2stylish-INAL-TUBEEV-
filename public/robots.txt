@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tu2stylish.com/sitemap.xml
+
+# Disallow admin and API routes
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api/*

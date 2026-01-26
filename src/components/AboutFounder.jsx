@@ -40,7 +40,7 @@ export default function AboutFounder() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-sm tracking-[0.3em] text-[var(--color-primary)] uppercase mb-4"
+              className="menu-text text-[var(--color-primary)] mb-4"
             >
               Founder & Creative Director
             </motion.p>
