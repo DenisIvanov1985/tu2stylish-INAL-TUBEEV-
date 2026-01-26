@@ -88,7 +88,7 @@ export default function GlobalPresence() {
                 </div>
                 <div>
                   <p className="text-white font-light">Email</p>
-                  <p className="text-[var(--color-muted)] text-sm">info@tu2stylish.com</p>
+                  <p className="text-[var(--color-muted)] text-sm">inal@tubeev.com</p>
                 </div>
               </div>
 
@@ -100,7 +100,7 @@ export default function GlobalPresence() {
                 </div>
                 <div>
                   <p className="text-white font-light">Phone</p>
-                  <p className="text-[var(--color-muted)] text-sm">+1 (555) 123-4567</p>
+                  <p className="text-[var(--color-muted)] text-sm">+1 (813) 344-7878</p>
                 </div>
               </div>
             </div>

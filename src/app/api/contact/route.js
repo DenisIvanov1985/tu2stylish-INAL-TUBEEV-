@@ -27,7 +27,7 @@ export async function POST(request) {
 
     // Отправка email через Resend
     const { data, error } = await resend.emails.send({
-      from: 'TU2STYLISH <onboarding@resend.dev>',
+      from: 'TU2STYLISH <noreply@tubeev.com>',
       to: [process.env.CONTACT_EMAIL || 'inal@tubeev.com'],
       subject: `New Request from ${name}`,
       html: `
@@ -80,7 +80,7 @@ export async function POST(request) {
     if (error) {
       console.error('Resend error:', error);
       return NextResponse.json(
-        { error: 'Failed to send email' },
+        { error: 'Failed to send email', details: error.message || error },
         { status: 500 }
       );
     }

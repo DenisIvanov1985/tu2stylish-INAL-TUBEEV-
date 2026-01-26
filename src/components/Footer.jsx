@@ -81,18 +81,18 @@ export default function Footer() {
             </h4>
             <div className="space-y-4">
               <p className="text-white/80">
-                <a href="mailto:hello@tu2stylish.com" className="link-hover hover:text-white transition-colors">
-                  hello@tu2stylish.com
+                <a href="mailto:inal@tubeev.com" className="link-hover hover:text-white transition-colors">
+                  inal@tubeev.com
                 </a>
               </p>
               <p className="text-white/80">
-                <a href="tel:+12125551234" className="link-hover hover:text-white transition-colors">
-                  +1 (212) 555-1234
+                <a href="tel:+18133447878" className="link-hover hover:text-white transition-colors">
+                  +1 (813) 344-7878
                 </a>
               </p>
               <p className="text-white/60">
-                123 Design Street<br />
-                New York, NY 10001
+                89 Third Street<br />
+                Cambridge, Boston, MA 02141
               </p>
             </div>
           </div>

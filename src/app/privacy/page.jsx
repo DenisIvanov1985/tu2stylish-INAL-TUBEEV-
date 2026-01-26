@@ -92,8 +92,8 @@ export default function PrivacyPage() {
                   If you have questions about this Privacy Policy, please contact us at:
                 </p>
                 <p className="text-white/60 mt-4">
-                  <strong className="text-white">Email:</strong> privacy@tu2stylish.com<br />
-                  <strong className="text-white">Address:</strong> 123 Design Street, New York, NY 10001
+                  <strong className="text-white">Email:</strong> inal@tubeev.com<br />
+                  <strong className="text-white">Address:</strong> 89 Third Street, Cambridge, Boston, MA 02141
                 </p>
               </section>
             </div>

@@ -91,9 +91,9 @@ export default function AccessibilityPage() {
                   We welcome your feedback on the accessibility of our website. If you encounter any accessibility barriers, please let us know:
                 </p>
                 <ul className="list-none text-white/60 space-y-2">
-                  <li><strong className="text-white">Email:</strong> accessibility@tu2stylish.com</li>
-                  <li><strong className="text-white">Phone:</strong> +1 (212) 555-1234</li>
-                  <li><strong className="text-white">Address:</strong> 123 Design Street, New York, NY 10001</li>
+                  <li><strong className="text-white">Email:</strong> inal@tubeev.com</li>
+                  <li><strong className="text-white">Phone:</strong> +1 (813) 344-7878</li>
+                  <li><strong className="text-white">Address:</strong> 89 Third Street, Cambridge, Boston, MA 02141</li>
                 </ul>
                 <p className="text-white/60 leading-relaxed mt-4">
                   We try to respond to accessibility feedback within 5 business days.
