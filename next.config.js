@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'directus-production-1c3b.up.railway.app',
+      },
     ],
   },
 };

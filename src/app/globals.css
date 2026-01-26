@@ -120,14 +120,7 @@ body {
 }
 
 /* ===== IMAGE LOADING ===== */
-img {
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-img.loaded {
-  opacity: 1;
-}
+/* Removed global img opacity rule - ImageSkeleton handles loading states */
 
 /* ===== LINK HOVER ===== */
 .link-hover {

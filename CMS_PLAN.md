@@ -91,7 +91,7 @@ npm run dev
   fields: [
     { name: 'title', type: 'text', required: true },
     { name: 'description', type: 'richText' },
-    { name: 'category', type: 'select', options: ['Residential', 'Commercial', 'Hospitality'] },
+    { name: 'category', type: 'select', options: ['Residential', 'Commercial', 'Hospitality', 'Furniture', 'Turnkey Projects', 'Concepts'] },
     { name: 'gallery', type: 'array', fields: [
       { name: 'image', type: 'upload', relationTo: 'media' },
       { name: 'caption', type: 'text' }
@@ -119,6 +119,12 @@ npm run dev
 ---
 
 ## Статус
+
+**ОТЛОЖЕНО** — Payload CMS 3.73 имеет проблемы совместимости с Next.js 16 (Turbopack).
+
+Вернуться когда:
+- Payload обновится для поддержки Next.js 16
+- Или использовать Strapi как альтернативу
 
 - [ ] Установка Payload
 - [ ] Настройка коллекций

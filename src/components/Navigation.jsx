@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const menuItems = [
-  { name: 'Projects', href: '#projects' },
+  { name: 'Projects', href: '/projects', isPage: true },
   { name: 'What We Do', href: '#services' },
-  { name: 'About TU2STYLISH', href: '#about' },
+  { name: 'About TU2STYLISH', href: '#founder' },
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -28,6 +28,17 @@ export default function Navigation() {
     ? 'bg-[#0E1110]/90 backdrop-blur-md'
     : 'bg-transparent';
 
+  const handleClick = (e, href) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // On non-homepage, navigate to homepage with anchor
+      window.location.href = '/' + href;
+    }
+  };
+
   return (
     <>
       <motion.nav
@@ -46,24 +57,36 @@ export default function Navigation() {
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center gap-8">
               {menuItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="link-hover menu-text transition-colors hover:opacity-100 text-white/80 hover:text-white"
-                >
-                  {item.name}
-                </Link>
+                item.isPage ? (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="link-hover menu-text transition-colors hover:opacity-100 text-white/80 hover:text-white cursor-pointer"
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    onClick={(e) => handleClick(e, item.href)}
+                    className="link-hover menu-text transition-colors hover:opacity-100 text-white/80 hover:text-white cursor-pointer"
+                  >
+                    {item.name}
+                  </a>
+                )
               ))}
             </div>
 
             {/* Right Side */}
             <div className="hidden lg:flex items-center gap-4">
-              <Link
+              <a
                 href="#contact"
-                className="px-6 py-3 bg-[var(--color-primary)] text-white text-sm font-medium tracking-wider uppercase hover:bg-[var(--color-primary-light)] transition-colors"
+                onClick={(e) => handleClick(e, '#contact')}
+                className="px-6 py-3 bg-[var(--color-primary)] text-white menu-text hover:bg-[var(--color-primary-light)] transition-colors cursor-pointer"
               >
                 Request a Consultation
-              </Link>
+              </a>
             </div>
 
             {/* Mobile Controls */}
@@ -111,13 +134,26 @@ export default function Navigation() {
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="text-3xl font-light tracking-wider hover:text-[var(--color-primary)] transition-colors text-white"
-                    >
-                      {item.name}
-                    </Link>
+                    {item.isPage ? (
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="text-3xl font-light tracking-wider hover:text-[var(--color-primary)] transition-colors text-white cursor-pointer"
+                      >
+                        {item.name}
+                      </Link>
+                    ) : (
+                      <a
+                        href={item.href}
+                        onClick={(e) => {
+                          handleClick(e, item.href);
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className="text-3xl font-light tracking-wider hover:text-[var(--color-primary)] transition-colors text-white cursor-pointer"
+                      >
+                        {item.name}
+                      </a>
+                    )}
                   </motion.div>
                 ))}
                 <motion.div
@@ -127,13 +163,16 @@ export default function Navigation() {
                   transition={{ delay: menuItems.length * 0.1 }}
                   className="mt-8"
                 >
-                  <Link
+                  <a
                     href="#contact"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="px-8 py-4 bg-[var(--color-primary)] text-white text-sm font-medium tracking-wider uppercase"
+                    onClick={(e) => {
+                      handleClick(e, '#contact');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="px-8 py-4 bg-[var(--color-primary)] text-white menu-text cursor-pointer"
                   >
                     Request a Consultation
-                  </Link>
+                  </a>
                 </motion.div>
               </nav>
             </div>

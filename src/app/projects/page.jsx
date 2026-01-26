@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { projects, categories } from '@/data/projects';
+import { categories } from '@/data/projects';
 import ImageSkeleton from '@/components/ImageSkeleton';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -16,17 +16,34 @@ function ProjectsContent() {
   const categoryFromUrl = searchParams.get('category');
   const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl || 'all');
   const [displayedProjects, setDisplayedProjects] = useState([]);
+  const [allProjects, setAllProjects] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const loaderRef = useRef(null);
 
-  // Filter and paginate projects
+  // Fetch projects from Directus API
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const res = await fetch('/api/projects');
+        const data = await res.json();
+        setAllProjects(data.projects || []);
+      } catch (error) {
+        console.error('Failed to fetch projects:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchProjects();
+  }, []);
+
+  // Filter projects by category
   const filteredProjects = selectedCategory === 'all'
-    ? projects.filter((p) => p.published)
-    : projects.filter((p) => {
-        const category = categories.find((c) => c.slug === selectedCategory);
-        return p.categoryId === category?.id && p.published;
+    ? allProjects.filter((p) => p.published)
+    : allProjects.filter((p) => {
+        const categorySlug = p.category?.toLowerCase().replace(/\s+/g, '-');
+        return categorySlug === selectedCategory && p.published;
       });
 
   // Load more projects
@@ -55,13 +72,13 @@ function ProjectsContent() {
     }
   }, [categoryFromUrl]);
 
-  // Reset when category changes
+  // Reset when category or projects change
   useEffect(() => {
     setPage(1);
     setHasMore(true);
     setDisplayedProjects(filteredProjects.slice(0, ITEMS_PER_PAGE));
     setHasMore(ITEMS_PER_PAGE < filteredProjects.length);
-  }, [selectedCategory]);
+  }, [selectedCategory, allProjects.length]);
 
   // Infinite scroll observer
   useEffect(() => {
@@ -111,7 +128,7 @@ function ProjectsContent() {
                     : 'border border-white/20 text-white/70 hover:border-white/40 hover:text-white'
                 }`}
               >
-                All ({projects.filter((p) => p.published).length})
+                All ({allProjects.filter((p) => p.published).length})
               </button>
               {categories.map((category) => (
                 <button
@@ -123,7 +140,7 @@ function ProjectsContent() {
                       : 'border border-white/20 text-white/70 hover:border-white/40 hover:text-white'
                   }`}
                 >
-                  {category.name} ({projects.filter((p) => p.categoryId === category.id && p.published).length})
+                  {category.name} ({allProjects.filter((p) => p.category?.toLowerCase().replace(/\s+/g, '-') === category.slug && p.published).length})
                 </button>
               ))}
             </div>

@@ -1,10 +1,11 @@
-// Mock data for projects (will be replaced with database)
+// Categories matching Directus CMS
 export const categories = [
-  { id: '1', name: 'Residential', slug: 'residential', count: 12 },
-  { id: '2', name: 'Commercial', slug: 'commercial', count: 8 },
-  { id: '3', name: 'Hospitality', slug: 'hospitality', count: 6 },
-  { id: '4', name: 'Mixed Use', slug: 'mixed-use', count: 4 },
-  { id: '5', name: 'Public & Urban', slug: 'public-urban', count: 3 },
+  { id: '1', name: 'Residential', slug: 'residential' },
+  { id: '2', name: 'Commercial', slug: 'commercial' },
+  { id: '3', name: 'Hospitality', slug: 'hospitality' },
+  { id: '4', name: 'Furniture', slug: 'furniture' },
+  { id: '5', name: 'Turnkey Projects', slug: 'turnkey-projects' },
+  { id: '6', name: 'Concepts', slug: 'concepts' },
 ];
 
 export const projects = [

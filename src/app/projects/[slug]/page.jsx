@@ -1,10 +1,9 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { getProjectBySlug, projects } from '@/data/projects';
 import ImageSkeleton from '@/components/ImageSkeleton';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -12,9 +11,54 @@ import MagneticButton from '@/components/MagneticButton';
 
 export default function ProjectPage() {
   const { slug } = useParams();
-  const project = getProjectBySlug(slug);
+  const [project, setProject] = useState(null);
+  const [relatedProjects, setRelatedProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  useEffect(() => {
+    async function fetchProject() {
+      try {
+        const res = await fetch('/api/projects');
+        const data = await res.json();
+        const allProjects = data.projects || [];
+
+        // Find project by slug
+        const foundProject = allProjects.find((p) => p.slug === slug);
+        setProject(foundProject || null);
+
+        // Get related projects
+        if (foundProject) {
+          const related = allProjects
+            .filter((p) => p.categoryId === foundProject.categoryId && p.id !== foundProject.id && p.published)
+            .slice(0, 3);
+          setRelatedProjects(related);
+        }
+      } catch (error) {
+        console.error('Failed to fetch project:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchProject();
+  }, [slug]);
+
+  if (isLoading) {
+    return (
+      <>
+        <Navigation />
+        <main className="min-h-screen bg-[var(--color-bg-dark)] pt-32 flex items-center justify-center">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-bounce" />
+            <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+            <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   if (!project) {
     return (
@@ -33,61 +77,46 @@ export default function ProjectPage() {
     );
   }
 
-  // Get related projects
-  const relatedProjects = projects
-    .filter((p) => p.categoryId === project.categoryId && p.id !== project.id && p.published)
-    .slice(0, 3);
-
   return (
     <>
       <Navigation />
 
-      <main className="bg-[var(--color-bg-dark)]">
-        {/* Hero */}
-        <section className="relative h-[70vh] min-h-[500px]">
-          <ImageSkeleton
-            src={project.coverImage}
-            alt={project.title}
-            className="absolute inset-0"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0E1110] via-transparent to-transparent" />
-
-          <div className="absolute bottom-0 left-0 right-0 pb-16">
-            <div className="container-custom">
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+      <main className="bg-[var(--color-bg-dark)] relative pt-32">
+        {/* Header */}
+        <section className="pb-12">
+          <div className="container-custom">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 text-white/60 hover:text-white mb-6 transition-colors"
               >
-                <Link
-                  href="/projects"
-                  className="inline-flex items-center gap-2 text-white/60 hover:text-white mb-6 transition-colors"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                  Back to Projects
-                </Link>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Projects
+              </Link>
 
-                <span className="inline-block px-3 py-1.5 bg-[var(--color-primary)] text-white text-xs tracking-wider uppercase mb-4">
-                  {project.category}
-                </span>
+              <span className="inline-block px-3 py-1.5 bg-[var(--color-primary)] text-white text-xs tracking-wider uppercase mb-4">
+                {project.category}
+              </span>
 
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-white mb-4">
-                  {project.title}
-                </h1>
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-light text-white mb-4">
+                {project.title}
+              </h1>
 
-                <p className="text-lg text-white/60">
-                  {project.location} — {project.year}
-                </p>
-              </motion.div>
-            </div>
+              <p className="text-lg text-white/60">
+                {project.location} — {project.year}
+              </p>
+            </motion.div>
           </div>
         </section>
 
         {/* Content */}
-        <section className="py-20">
+        <section className="py-20 relative z-20 bg-[var(--color-bg-dark)]">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
               {/* Description */}
@@ -114,8 +143,8 @@ export default function ProjectPage() {
                   <div className="grid grid-cols-2 gap-8">
                     {project.area && (
                       <div>
-                        <p className="text-3xl font-light text-white mb-1">{project.area.toLocaleString()}</p>
-                        <p className="text-sm text-white/50 tracking-wider uppercase">Sq.m</p>
+                        <p className="text-3xl font-light text-white mb-1">{project.area}</p>
+                        <p className="text-sm text-white/50 tracking-wider uppercase">Area</p>
                       </div>
                     )}
                     {project.duration && (
@@ -153,8 +182,8 @@ export default function ProjectPage() {
         </section>
 
         {/* Gallery */}
-        {project.images.length > 1 && (
-          <section className="py-20 bg-[var(--color-bg-section)]">
+        {project.images.length > 0 && (
+          <section className="py-20 bg-[var(--color-bg-section)] relative z-20">
             <div className="container-custom">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -180,11 +209,12 @@ export default function ProjectPage() {
                       setIsLightboxOpen(true);
                     }}
                   >
-                    <div className={`relative overflow-hidden group ${index === 0 ? 'aspect-[16/9]' : 'aspect-[4/3]'}`}>
-                      <ImageSkeleton
+                    <div className="relative overflow-hidden group">
+                      <img
                         src={image}
                         alt={`${project.title} - Image ${index + 1}`}
-                        className="w-full h-full transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
                         <svg className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

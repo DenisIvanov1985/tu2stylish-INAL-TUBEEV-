@@ -10,14 +10,21 @@ export default function ImageSkeleton({
   className = '',
   priority = false,
   fill = true,
+  objectFit = 'cover', // 'cover' or 'contain'
   ...props
 }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const imgRef = useRef(null);
 
-  // Check if it's an external URL (Unsplash)
+  // Check if it's an external URL
   const isExternal = src?.startsWith('http');
+
+  // Reset state when src changes
+  useEffect(() => {
+    setIsLoaded(false);
+    setHasError(false);
+  }, [src]);
 
   // Check if image is already loaded (cached)
   useEffect(() => {
@@ -26,9 +33,25 @@ export default function ImageSkeleton({
     }
   }, [src]);
 
+  if (!src) {
+    return (
+      <div className={`bg-gray-800 ${className}`} {...props}>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-gray-500 text-sm">No image</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't add 'relative' if className already has positioning
+  const hasPositioning = className.includes('absolute') || className.includes('fixed');
+  const wrapperClass = hasPositioning
+    ? `overflow-hidden ${className}`
+    : `relative overflow-hidden ${className}`;
+
   return (
-    <div className={`relative overflow-hidden bg-[#0E1110] ${className}`} {...props}>
-      {/* Skeleton */}
+    <div className={wrapperClass} {...props}>
+      {/* Skeleton loading animation */}
       {!isLoaded && !hasError && (
         <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 animate-pulse">
           <motion.div
@@ -39,14 +62,13 @@ export default function ImageSkeleton({
         </div>
       )}
 
-      {/* Image - use regular img for external URLs to avoid Next.js Image optimization issues */}
+      {/* Image */}
       {isExternal ? (
         <img
           ref={imgRef}
           src={src}
           alt={alt || ''}
-          className="w-full h-full object-cover"
-          style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.5s ease' }}
+          className={`w-full h-full transition-opacity duration-500 ${objectFit === 'contain' ? 'object-contain' : 'object-cover'} ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoad={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
           loading={priority ? 'eager' : 'lazy'}
@@ -57,8 +79,7 @@ export default function ImageSkeleton({
           src={src}
           alt={alt || ''}
           fill={fill}
-          className="object-cover"
-          style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.5s ease' }}
+          className={`transition-opacity duration-500 ${objectFit === 'contain' ? 'object-contain' : 'object-cover'} ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoad={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
           priority={priority}
