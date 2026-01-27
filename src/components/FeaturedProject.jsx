@@ -20,7 +20,7 @@ export default function FeaturedProject() {
       >
         <img
           src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=70&auto=format"
-          alt="Featured Project"
+          alt="Skyline Penthouse - Luxury interior design project in New York"
           className="w-full h-full object-cover"
           loading="eager"
           style={{ opacity: 1 }}

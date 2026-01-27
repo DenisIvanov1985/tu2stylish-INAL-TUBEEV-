@@ -69,7 +69,7 @@ export default function Hero() {
         >
           <motion.img
             src={projects[currentSlide].image}
-            alt={projects[currentSlide].title}
+            alt={`${projects[currentSlide].title} - Interior design project in ${projects[currentSlide].location}`}
             className="w-full h-full object-cover"
             loading="eager"
             initial={{ opacity: 0 }}

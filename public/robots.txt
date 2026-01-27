@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://tu2stylish.com/sitemap.xml
+Sitemap: https://www.tubeev.com/sitemap.xml
 
 # Disallow admin and API routes
 Disallow: /admin
