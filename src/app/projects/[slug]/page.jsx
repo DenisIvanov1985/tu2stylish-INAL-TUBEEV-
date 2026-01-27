@@ -48,7 +48,7 @@ export default function ProjectPage() {
     return (
       <>
         <Navigation />
-        <main className="min-h-screen bg-[var(--color-bg-dark)] pt-32 flex items-center justify-center">
+        <main className="min-h-screen bg-[var(--color-bg-dark)] pt-40 flex items-center justify-center">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-bounce" />
             <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -64,7 +64,7 @@ export default function ProjectPage() {
     return (
       <>
         <Navigation />
-        <main className="min-h-screen bg-[var(--color-bg-dark)] pt-32 flex items-center justify-center">
+        <main className="min-h-screen bg-[var(--color-bg-dark)] pt-40 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl font-light text-white mb-4">Project Not Found</h1>
             <Link href="/projects" className="text-[var(--color-primary)] hover:underline">
@@ -81,7 +81,10 @@ export default function ProjectPage() {
     <>
       <Navigation />
 
-      <main className="bg-[var(--color-bg-dark)] relative pt-32">
+      <main className="bg-[var(--color-bg-dark)] relative">
+        {/* Spacer for fixed navigation */}
+        <div className="h-32"></div>
+
         {/* Header */}
         <section className="pb-12">
           <div className="container-custom">
@@ -99,10 +102,6 @@ export default function ProjectPage() {
                 </svg>
                 Back to Projects
               </Link>
-
-              <span className="inline-block px-3 py-1.5 bg-[var(--color-primary)] text-white text-xs tracking-wider uppercase mb-4">
-                {project.category}
-              </span>
 
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-light text-white mb-4">
                 {project.title}
@@ -168,14 +167,6 @@ export default function ProjectPage() {
                   </div>
                 </div>
 
-                <MagneticButton>
-                  <Link
-                    href="#contact"
-                    className="block w-full py-4 bg-[var(--color-primary)] text-white text-center text-sm font-medium tracking-wider uppercase hover:bg-[var(--color-primary-light)] transition-colors"
-                  >
-                    Start Similar Project
-                  </Link>
-                </MagneticButton>
               </motion.div>
             </div>
           </div>

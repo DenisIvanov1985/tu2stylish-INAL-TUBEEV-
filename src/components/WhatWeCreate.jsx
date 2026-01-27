@@ -11,31 +11,31 @@ const categories = [
     name: 'Residential',
     slug: 'residential',
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=70&auto=format',
-    count: 45,
-  },
-  {
-    name: 'Mixed Use',
-    slug: 'mixed-use',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=70&auto=format',
-    count: 23,
-  },
-  {
-    name: 'Hospitality',
-    slug: 'hospitality',
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=70&auto=format',
-    count: 18,
   },
   {
     name: 'Commercial',
     slug: 'commercial',
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=70&auto=format',
-    count: 31,
   },
   {
-    name: 'Public & Urban',
-    slug: 'public-urban',
-    image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=70&auto=format',
-    count: 12,
+    name: 'Hospitality',
+    slug: 'hospitality',
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=70&auto=format',
+  },
+  {
+    name: 'Furniture',
+    slug: 'furniture',
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=70&auto=format',
+  },
+  {
+    name: 'Turnkey Projects',
+    slug: 'turnkey-projects',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=70&auto=format',
+  },
+  {
+    name: 'Concepts',
+    slug: 'concepts',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=70&auto=format',
   },
 ];
 
@@ -90,7 +90,7 @@ export default function WhatWeCreate() {
                       {category.name}
                     </h3>
                     <p className="text-sm text-white/60 tracking-wider">
-                      {category.count} Projects
+                      View Projects
                     </p>
                   </div>
 

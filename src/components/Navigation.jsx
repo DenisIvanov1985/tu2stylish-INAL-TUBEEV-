@@ -25,8 +25,8 @@ export default function Navigation() {
   }, []);
 
   const navBg = isScrolled
-    ? 'bg-[#0E1110]/90 backdrop-blur-md'
-    : 'bg-transparent';
+    ? 'bg-[#0E1110]/95 backdrop-blur-md'
+    : 'bg-[#0E1110]/80 backdrop-blur-sm';
 
   const handleClick = (e, href) => {
     e.preventDefault();

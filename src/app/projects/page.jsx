@@ -4,7 +4,15 @@ import { useState, useEffect, useRef, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { categories } from '@/data/projects';
+// Categories with images for filter cards
+const categoriesWithImages = [
+  { name: 'Residential', slug: 'residential', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=70&auto=format' },
+  { name: 'Commercial', slug: 'commercial', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=70&auto=format' },
+  { name: 'Hospitality', slug: 'hospitality', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=70&auto=format' },
+  { name: 'Furniture', slug: 'furniture', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=70&auto=format' },
+  { name: 'Turnkey Projects', slug: 'turnkey-projects', image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&q=70&auto=format' },
+  { name: 'Concepts', slug: 'concepts', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&q=70&auto=format' },
+];
 import ImageSkeleton from '@/components/ImageSkeleton';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -14,7 +22,7 @@ const ITEMS_PER_PAGE = 6;
 function ProjectsContent() {
   const searchParams = useSearchParams();
   const categoryFromUrl = searchParams.get('category');
-  const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl || 'all');
+  const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl || null);
   const [displayedProjects, setDisplayedProjects] = useState([]);
   const [allProjects, setAllProjects] = useState([]);
   const [page, setPage] = useState(1);
@@ -39,7 +47,7 @@ function ProjectsContent() {
   }, []);
 
   // Filter projects by category
-  const filteredProjects = selectedCategory === 'all'
+  const filteredProjects = !selectedCategory
     ? allProjects.filter((p) => p.published)
     : allProjects.filter((p) => {
         const categorySlug = p.category?.toLowerCase().replace(/\s+/g, '-');
@@ -102,47 +110,51 @@ function ProjectsContent() {
     <>
       <Navigation />
 
-      <main className="min-h-screen bg-[var(--color-bg-dark)] pt-32 pb-20">
+      <main className="min-h-screen bg-[var(--color-bg-dark)] pb-20">
+        {/* Spacer for fixed navigation */}
+        <div className="h-32"></div>
         <div className="container-custom">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-16"
+            className="mb-20"
           >
             <p className="text-sm tracking-[0.3em] text-[var(--color-accent)] uppercase mb-4">
               Our Work
             </p>
-            <h1 className="text-4xl md:text-6xl font-light text-white mb-8">
+            <h1 className="text-4xl md:text-5xl font-light text-white mb-12">
               Projects
             </h1>
 
             {/* Category Filters */}
-            <div className="flex flex-wrap gap-3">
-              <button
-                onClick={() => setSelectedCategory('all')}
-                className={`px-5 py-2.5 text-sm tracking-wider uppercase transition-all duration-300 ${
-                  selectedCategory === 'all'
-                    ? 'bg-[var(--color-primary)] text-white'
-                    : 'border border-white/20 text-white/70 hover:border-white/40 hover:text-white'
-                }`}
-              >
-                All ({allProjects.filter((p) => p.published).length})
-              </button>
-              {categories.map((category) => (
+            <div className="border-b border-white/10 pb-6">
+              <div className="flex flex-wrap gap-x-8 gap-y-3">
                 <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.slug)}
-                  className={`px-5 py-2.5 text-sm tracking-wider uppercase transition-all duration-300 ${
-                    selectedCategory === category.slug
-                      ? 'bg-[var(--color-primary)] text-white'
-                      : 'border border-white/20 text-white/70 hover:border-white/40 hover:text-white'
+                  onClick={() => setSelectedCategory(null)}
+                  className={`text-sm tracking-wider uppercase transition-all duration-300 pb-2 border-b-2 ${
+                    !selectedCategory
+                      ? 'text-white border-[var(--color-primary)]'
+                      : 'text-white/50 border-transparent hover:text-white/80'
                   }`}
                 >
-                  {category.name} ({allProjects.filter((p) => p.category?.toLowerCase().replace(/\s+/g, '-') === category.slug && p.published).length})
+                  All
                 </button>
-              ))}
+                {categoriesWithImages.map((category) => (
+                  <button
+                    key={category.slug}
+                    onClick={() => setSelectedCategory(category.slug)}
+                    className={`text-sm tracking-wider uppercase transition-all duration-300 pb-2 border-b-2 ${
+                      selectedCategory === category.slug
+                        ? 'text-white border-[var(--color-primary)]'
+                        : 'text-white/50 border-transparent hover:text-white/80'
+                    }`}
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
             </div>
           </motion.div>
 
