@@ -1,5 +1,5 @@
 // Directus CMS Configuration
-const DIRECTUS_URL = 'https://directus-production-1c3b.up.railway.app';
+const DIRECTUS_URL = process.env.NEXT_PUBLIC_DIRECTUS_URL || 'https://directus-production-1c3b.up.railway.app';
 
 // Fetch all projects from Directus
 export async function getProjects() {
