@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -64,13 +65,13 @@ const jsonLd = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth" data-theme="dark">
-      <head>
-        <script
+      <body className={`${inter.variable} antialiased`}>
+        <Script
+          id="json-ld"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body className={`${inter.variable} antialiased`}>
         {children}
       </body>
     </html>
