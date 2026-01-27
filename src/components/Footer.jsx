@@ -58,7 +58,7 @@ export default function Footer() {
             <h4 className="text-sm tracking-[0.2em] uppercase text-white/50 mb-6">
               Navigation
             </h4>
-            <nav className="flex flex-col gap-4">
+            <nav className="flex flex-col gap-4" aria-label="Footer navigation">
               <Link href="#projects" className="link-hover text-white/80 hover:text-white transition-colors">
                 Projects
               </Link>

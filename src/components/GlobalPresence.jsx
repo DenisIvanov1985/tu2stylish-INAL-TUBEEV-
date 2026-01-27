@@ -139,29 +139,33 @@ export default function GlobalPresence() {
                 {/* Name & Email Row */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="group">
-                    <label className="block text-sm text-[var(--color-muted)] mb-2 tracking-wider uppercase">
+                    <label htmlFor="name" className="block text-sm text-[var(--color-muted)] mb-2 tracking-wider uppercase">
                       Name *
                     </label>
                     <input
                       type="text"
+                      id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       required
+                      autoComplete="name"
                       className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/30 focus:border-[var(--color-primary)] focus:outline-none transition-colors"
                       placeholder="Your name"
                     />
                   </div>
                   <div className="group">
-                    <label className="block text-sm text-[var(--color-muted)] mb-2 tracking-wider uppercase">
+                    <label htmlFor="email" className="block text-sm text-[var(--color-muted)] mb-2 tracking-wider uppercase">
                       Email *
                     </label>
                     <input
                       type="email"
+                      id="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       required
+                      autoComplete="email"
                       className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/30 focus:border-[var(--color-primary)] focus:outline-none transition-colors"
                       placeholder="your@email.com"
                     />
@@ -171,14 +175,16 @@ export default function GlobalPresence() {
                 {/* Phone & Project Type Row */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="group">
-                    <label className="block text-sm text-[var(--color-muted)] mb-2 tracking-wider uppercase">
+                    <label htmlFor="phone" className="block text-sm text-[var(--color-muted)] mb-2 tracking-wider uppercase">
                       Phone
                     </label>
                     <input
                       type="tel"
+                      id="phone"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
+                      autoComplete="tel"
                       className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/30 focus:border-[var(--color-primary)] focus:outline-none transition-colors"
                       placeholder="+1 (555) 000-0000"
                     />
@@ -208,10 +214,11 @@ export default function GlobalPresence() {
 
                 {/* Message */}
                 <div className="group">
-                  <label className="block text-sm text-[var(--color-muted)] mb-2 tracking-wider uppercase">
+                  <label htmlFor="message" className="block text-sm text-[var(--color-muted)] mb-2 tracking-wider uppercase">
                     Tell us about your project *
                   </label>
                   <textarea
+                    id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
